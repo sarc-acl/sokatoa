@@ -1,26 +1,60 @@
 <br/>
-<p align="center" style="margin-top:224px">
+
+<p align="center">
     <picture>
         <source media="(prefers-color-scheme: dark)" srcset="./assets-readme/sokatoa-dark.svg" style="width:500px">
         <img alt="Sokatoa" src="./assets-readme/sokatoa-light.svg" style="width:500px; display:block; margin-left:auto; margin-right:auto; margin-bottom:48px">
     </picture>
-    <br/>
-    <img alt="Sokatoa hero image" src="./assets-readme/hero.png" width="100%"/>
 </p>
-
-<br/><br/>
-# Coming Soon - March 2026!
-
-<br/><br/>
-Sokatoa is a multi-frame performance profiling and frame debugging tool for Android.  It was designed specifically for Android development and optimized for graphics-intensive mobile games and applications.  Sokatoa supports industry leading GPUs like Samsung’s Exynos, ARM Mali, Qualcomm Adreno and Imagination PowerVR.
-
-#### **Sokatoa will be free to download and use.  It will be open-sourced at the end of 2026.**
-
-Executables and documentation will be available [directly from Github](https://github.com/sarc-acl/sokatoa/releases).  "Watch" this project to get notified of changes.
 
 <br/>
 
-### System Requirements
+<img alt="Sokatoa hero image" src="./assets-readme/hero.png" width="100%"/>
+
+<br/>
+
+Sokatoa is a multi-frame performance profiling and frame debugging tool for Android.  It was designed specifically for Android development and optimized for graphics-intensive mobile games and applications.  Sokatoa supports industry leading GPUs like Samsung’s Exynos, ARM Mali, Qualcomm Adreno and Imagination PowerVR.
+
+#### **Sokatoa is free to download and use.  It will be open-sourced at the end of 2026.**
+
+[Click here](https://discord.gg/7ZQrU9GZc3) to join the Sokatoa Discord channel and use it to give feedback and ask questions.
+
+
+<br/>
+
+# Installation
+
+1. Validate you meet [the system requirements](#system-requirements)
+2. Download the build for your OS.  Sokatoa is free to download and use.
+    * [Windows](https://github.com/sarc-acl/sokatoa/releases/download/v1.0.0/Sokatoa-installer-1.0.0.exe)
+    * [Linux](https://github.com/sarc-acl/sokatoa/releases/download/v1.0.0/Sokatoa-1.0.0.AppImage)
+    * [MacOS](https://github.com/sarc-acl/sokatoa/releases/download/v1.0.0/Sokatoa-1.0.0-arm64.dmg)
+3. Quick start: [Download the Sample Profile](https://github.com/sarc-acl/sokatoa/releases/download/v1.0.0/SokatoaSample.zip) and [open it within Sokatoa](#quick-start-opening-the-sample-profile) for the fastest way to explore the tool
+4. Read the [Getting Started documentation](docs/user/getting-started.md)
+5. Accept [our invite to join the Sokatoa Discord channel](https://discord.gg/7ZQrU9GZc3)
+
+
+<br/>
+
+# Quick Start: Opening the Sample Profile
+1. [Download the Sample Profile](https://github.com/sarc-acl/sokatoa/releases/download/v1.0.0/SokatoaSample.zip)
+2. Extract the contents to a new folder named `sokatoa-sample`.  The destination is not critial to Sokatoa, but place it somewhere convenient to find.  By default, Sokatoa stores profiles in the host account folder in a sub-folder named `sokatoa\profiles`.  For example, on Windows the path would be `C:\Users\{{account name}}\sokatoa\profiles`.
+3. Launch Sokatoa
+4. Open the sample profile
+<img alt="opening a profile" src="./assets-readme/opening-a-profile.png" width="100%"/>
+5. Open the `profile.sokatoa` file within the profile's folder
+
+<br/>
+
+At the end of step five, Sokatoa will show the profile in the **System** view.  This profile has two frames of data.  At this point, you are free to explore the tool.  See the [Getting Started documentation](docs/user/getting-started.md) for areas of interest.
+
+<br/>
+
+<img alt="initial profile view " src="./assets-readme/initial-profile-view.png" width="100%"/>
+
+<br/>
+
+# System Requirements
 ##### Supported host platforms
 -   macOS: macOS 14 or later (Apple silicon)
 -   Linux: Ubuntu 22.04 or later
@@ -34,8 +68,10 @@ Executables and documentation will be available [directly from Github](https://g
 -   For performance view data, Xclipse, Mali, Adreno or PowerVR GPU required
 
 
-<br/><br/>
-### Overview
+<br/>
+
+
+# Overview
 Sokatoa exists to fix the gap of GPU tooling for Android, and to make performance profiling and frame debugging easier than it is today.
 
 GPU profiling is about understanding why a frame did not render as expected or why render performance did not satisfy some rubric.  Finding answers for these questions is anything but simple; GPU profiling is notoriously challenging.  The whole process, from capturing data to finding what problems exist within a massive data set to determining the cause of the problem, is arduous, awkward, and demands lots of cognitive focus.  Android developers often have to use multiple apps, because the ecosystem’s current tools either have limited profiling scope or can only inspect a single frame at a time.
