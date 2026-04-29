@@ -20,6 +20,23 @@ directory and send it to us. You can find the sokatoa.log file here:
 
 ---
 
+## Version 1.0.1
+
+-   Fixed issue with bindings/dynamic state contribution function tracking
+-   Fixed shader editor syntax highlighting on macOS
+-   Fixed the download button in the geometry and images views
+-   Added support for VK_EXT_debug_markers
+-   Added support for the nullDescriptor feature
+-   Added device commands to command tree views
+-   Added profile export/import to make sharing profiles easier
+-   The system view now groups all counters with only zero values in a new Zero Counters group
+-   Improved performance view data when there are multiple Vulkan instances
+-   Added cull mode and flip winding order to the geometry view
+-   Various improvements to modified shader versioning
+-   We now use the multi-win variant of GFXR replay which should improve replay of captures with multiple surfaces
+-   You can now rename profiles, replays and replay groups
+-   Updated GFXR to pick up various fixes
+
 ## Version 1.0.0
 
 -   Initial public release
