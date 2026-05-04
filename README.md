@@ -26,10 +26,10 @@ Sokatoa is a multi-frame performance profiling and frame debugging tool for Andr
 
 1. Validate you meet [the system requirements](#system-requirements)
 2. Download the build for your OS.  Sokatoa is free to download and use.
-    * [Windows](https://github.com/sarc-acl/sokatoa/releases/download/v1.0.0/Sokatoa-installer-1.0.0.exe)
-    * [Linux](https://github.com/sarc-acl/sokatoa/releases/download/v1.0.0/Sokatoa-1.0.0.AppImage)
-    * [MacOS](https://github.com/sarc-acl/sokatoa/releases/download/v1.0.0/Sokatoa-1.0.0-arm64.dmg)
-3. Quick start: [Download the Sample Profile](https://github.com/sarc-acl/sokatoa/releases/download/v1.0.0/SokatoaSample.zip) and [open it within Sokatoa](#quick-start-opening-the-sample-profile) for the fastest way to explore the tool
+    * [Windows](https://github.com/sarc-acl/sokatoa/releases/download/v1.0.1/Sokatoa-installer-1.0.1.exe)
+    * [Linux](https://github.com/sarc-acl/sokatoa/releases/download/v1.0.1/Sokatoa-1.0.1.AppImage)
+    * [MacOS](https://github.com/sarc-acl/sokatoa/releases/download/v1.0.1/Sokatoa-1.0.1-arm64.dmg)
+3. Quick start: [Download the Sample Profile](https://github.com/sarc-acl/sokatoa/releases/download/v1.0.1/SokatoaSample.zip) and [open it within Sokatoa](#quick-start-opening-the-sample-profile) for the fastest way to explore the tool
 4. Read the [Getting Started documentation](docs/user/getting-started.md)
 5. Accept [our invite to join the Sokatoa Discord channel](https://discord.gg/7ZQrU9GZc3)
 
@@ -37,7 +37,7 @@ Sokatoa is a multi-frame performance profiling and frame debugging tool for Andr
 <br/>
 
 # Quick Start: Opening the Sample Profile
-1. [Download the Sample Profile](https://github.com/sarc-acl/sokatoa/releases/download/v1.0.0/SokatoaSample.zip)
+1. [Download the Sample Profile](https://github.com/sarc-acl/sokatoa/releases/download/v1.0.1/SokatoaSample.zip)
 2. Extract the contents to a new folder named `sokatoa-sample`.  The destination is not critial to Sokatoa, but place it somewhere convenient to find.  By default, Sokatoa stores profiles in the host account folder in a sub-folder named `sokatoa\profiles`.  For example, on Windows the path would be `C:\Users\{{account name}}\sokatoa\profiles`.
 3. Launch Sokatoa
 4. Open the sample profile
