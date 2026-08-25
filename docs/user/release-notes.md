@@ -1,6 +1,8 @@
-<div style="padding-top:8px; text-align:center">
-    <h1>Sokatoa Release Notes</h1>
-</div>
+<br>
+
+# Sokatoa Release Notes
+
+<br> 
 
 ## Known Issues
 
@@ -20,6 +22,25 @@ directory and send it to us. You can find the sokatoa.log file here:
 
 ---
 
+<br>
+
+## Version 1.1.0
+
+-   AI analysis: LLM-service integration allows AI-assisted analysis where the AI accesses the Sokatoa data and then informs users where performance issues are and proposes solutions to improve performance.
+-   View shader ISA disassembly.  Available only through a Samsung extension.
+-   Collect and present Vulkan event timing data.  Available only through a Samsung extension.
+-   The performance view now has toolbar items that allow you to customize which columns to display as well as saving/selecting custom view layouts.
+-   GFXR replays now save/restore the pipeline cache which can greatly improve replay performance when replaying on a different device or when the driver has changed.
+-   The performance view now indicates why data may be missing in the view itself.  It also writes diagnostic logs to a new performance channel in the output view.
+-   Various improvements to the profile import/export process
+-   Improved GFXR parsing behavior to cover more of the Vulkan spec
+-   Added the ability to collect and display logcat messages in the system view
+-   Fixed issue launching the Sokatoa AppImage on certain Linux distributions
+-   Added file type integration into the OS for Sokatoa file types (.sokatoa, .spa)
+-   Updated the version of GFXR used
+
+<br>
+
 ## Version 1.0.1
 
 -   Fixed issue with bindings/dynamic state contribution function tracking
@@ -36,6 +57,8 @@ directory and send it to us. You can find the sokatoa.log file here:
 -   We now use the multi-win variant of GFXR replay which should improve replay of captures with multiple surfaces
 -   You can now rename profiles, replays and replay groups
 -   Updated GFXR to pick up various fixes
+
+<br>
 
 ## Version 1.0.0
 
@@ -56,6 +79,8 @@ directory and send it to us. You can find the sokatoa.log file here:
 -   The package ID of the Sokatoa APK changed, so if you had the beta installed, you can uninstall the old APK
     -   `adb uninstall com.google.sokatoa`
 
+<br>
+
 ## Version 0.0.8
 
 -   Improved GFXR parsing behavior and performance
@@ -73,6 +98,8 @@ directory and send it to us. You can find the sokatoa.log file here:
 -   Updated GFXR to pick up various fixes
 -   Misc performance and stability improvements
 
+<br>
+
 ## Version 0.0.7
 
 -   Draw resources (geometry, textures) for draw calls in secondary command buffers is now supported
@@ -86,6 +113,8 @@ directory and send it to us. You can find the sokatoa.log file here:
 -   Updated GFXR to pick up various fixes, including capture and replay performance improvements
 -   Added annotation support to the command tree (you will be able to annotate many more profile elements in a future release)
 -   Misc performance and stability improvements
+
+<br>
 
 ## Version 0.0.6
 
@@ -101,6 +130,8 @@ directory and send it to us. You can find the sokatoa.log file here:
 -   Added drag selection and mouse wheel zoom to the timeline navigator
 -   Misc performance and stability improvements
 -   More flexibility in new profile naming with added substitution variables
+
+<br>
 
 ## Version 0.0.5
 

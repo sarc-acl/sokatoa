@@ -13,11 +13,37 @@
 
 <br/>
 
-Sokatoa is a multi-frame performance profiling and frame debugging tool for Android.  It was designed specifically for Android development and optimized for graphics-intensive mobile games and applications.  Sokatoa supports industry leading GPUs like Samsung’s Exynos, ARM Mali, Qualcomm Adreno and Imagination PowerVR.
+Sokatoa is a multi-frame performance profiling and frame debugging tool for Android.  It was designed specifically for Android development and optimized for graphics-intensive mobile games and applications.  Sokatoa supports industry-leading GPUs like Samsung’s Exynos, ARM Mali, Qualcomm Adreno and Imagination PowerVR.
 
-#### **Sokatoa is free to download and use.  It will be open-sourced at the end of 2026.**
+#### **Sokatoa is free to download and use.  It will be open-sourced in the near future.**
 
 [Click here](https://discord.gg/7ZQrU9GZc3) to join the Sokatoa Discord channel and use it to give feedback and ask questions.
+
+<br>
+<br>
+
+
+# What's Here
+- [Installation instructions](#installation)
+- [System requirements](#system-requirements)
+- [Overview](#overview)
+   - [Key features](#key-features)
+- [Origins](#origins)
+
+<br>
+
+### Additional Documentation
+- [Getting started](./docs/user/getting-started.md#getting-started-with-sokatoa)
+- [Getting to know profiles](./docs/user/profiles.md)
+- [Viewing profiles](./docs/user/viewing-profiles.md)
+- [AI analysis](./docs/user/ai-analysis.md#ai-analysis-with-sokatoa)
+- [Shader editing](./docs/user/shaders.md#shader-editing)
+- [The Notebook](./docs/user/notes.md)
+- [Release notes](./docs/user/release-notes.md#sokatoa-release-notes)
+
+
+<br>
+<br>
 
 
 <br/>
@@ -26,31 +52,13 @@ Sokatoa is a multi-frame performance profiling and frame debugging tool for Andr
 
 1. Validate you meet [the system requirements](#system-requirements)
 2. Download the build for your OS.  Sokatoa is free to download and use.
-    * [Windows](https://github.com/sarc-acl/sokatoa/releases/download/v1.0.1/Sokatoa-installer-1.0.1.exe)
-    * [Linux](https://github.com/sarc-acl/sokatoa/releases/download/v1.0.1/Sokatoa-1.0.1.AppImage)
-    * [MacOS](https://github.com/sarc-acl/sokatoa/releases/download/v1.0.1/Sokatoa-1.0.1-arm64.dmg)
-3. Quick start: [Download the Sample Profile](https://github.com/sarc-acl/sokatoa/releases/download/v1.0.1/SokatoaSample.zip) and [open it within Sokatoa](#quick-start-opening-the-sample-profile) for the fastest way to explore the tool
+    * [Windows](https://github.com/sarc-acl/sokatoa/releases/download/v1.1.0/Sokatoa-installer-1.1.0.exe)
+    * [Linux](https://github.com/sarc-acl/sokatoa/releases/download/v1.1.0/Sokatoa-1.1.0.AppImage)
+    * [MacOS](https://github.com/sarc-acl/sokatoa/releases/download/v1.1.0/Sokatoa-1.1.0-arm64.dmg)
+3. Quick start: [Download the Sample Profile](https://github.com/sarc-acl/sokatoa/releases/latest/download/SokatoaSample.spa) and [open it within Sokatoa](docs/user/getting-started.md#exploring-the-sample-profile) for the fastest way to explore the tool
 4. Read the [Getting Started documentation](docs/user/getting-started.md)
 5. Accept [our invite to join the Sokatoa Discord channel](https://discord.gg/7ZQrU9GZc3)
 
-
-<br/>
-
-# Quick Start: Opening the Sample Profile
-1. [Download the Sample Profile](https://github.com/sarc-acl/sokatoa/releases/download/v1.0.1/SokatoaSample.zip)
-2. Extract the contents to a new folder named `sokatoa-sample`.  The destination is not critial to Sokatoa, but place it somewhere convenient to find.  By default, Sokatoa stores profiles in the host account folder in a sub-folder named `sokatoa\profiles`.  For example, on Windows the path would be `C:\Users\{{account name}}\sokatoa\profiles`.
-3. Launch Sokatoa
-4. Open the sample profile
-<img alt="opening a profile" src="./assets-readme/opening-a-profile.png" width="100%"/>
-5. Open the `profile.sokatoa` file within the profile's folder
-
-<br/>
-
-At the end of step five, Sokatoa will show the profile in the **System** view.  This profile has two frames of data.  At this point, you are free to explore the tool.  See the [Getting Started documentation](docs/user/getting-started.md) for areas of interest.
-
-<br/>
-
-<img alt="initial profile view " src="./assets-readme/initial-profile-view.png" width="100%"/>
 
 <br/>
 
@@ -60,12 +68,12 @@ At the end of step five, Sokatoa will show the profile in the **System** view.  
 -   Linux: Ubuntu 22.04 or later
 -   Windows: Windows 10 or later
 ##### Host setup
--   ADB installed and the containing directory listed in the path environment variable
+-   ADB installed and the containing directory listed in the `PATH` environment variable
 -   Device connected to ADB (USB or Wi-Fi) - requires developer mode and USB debugging enabled for USB connection
 ##### Target device
 -   Android 13 or later
 -   Debuggable APK or rooted device required for GFXR, Sokatoa Vulkan layers
--   For performance view data, Xclipse, Mali, Adreno or PowerVR GPU required
+-   For performance view data, Xclipse, Mali, Adreno, or PowerVR GPU required
 
 
 <br/>
@@ -88,7 +96,7 @@ Analyze rendering behavior across multiple frames to uncover intermittent, frame
 <img alt="Multi-frame GPU profiling image" src="./assets-readme/multi-frame.png"/>
 
 ##### Multi-perspective insights
-Sokatoa captures data to support both performance profiling and frame debugging.  By capturing data from all perspectives developers do not need to switch between multiple tools.  Developers can review system- and frame-level Vulkan API events, pipelines, and shader performance.
+Sokatoa captures data to support both performance profiling and frame debugging.  By capturing data from all perspectives, developers do not need to switch between multiple tools.  Developers can review system- and frame-level Vulkan API events, pipelines, and shader performance.
 
 <img alt="Multi-perspective insights image" src="./assets-readme/insights.png"/>
 
@@ -106,10 +114,11 @@ Developers can edit shaders, replay workloads directly on device, and compare re
 Sokatoa is designed to be extensible from day one, allowing GPU vendors, third-party tool developers, and studios to build custom extensions—similar to VS Code plugins—for producing metrics, analysis panels, and workflow automation.
 
 ##### Vulkan and Android focused
-Sokatoa was built to support Android games and applications using Vulkan.  It enables modern workflows to ensure data accuracy, metric relevance and forward compatibility.  Later this year, Samsung will release a Sokatoa extension that enhances and optimizes profiling of Samsung GPUs for Android devices.
+Sokatoa was built to support Android games and applications using Vulkan.  It enables modern workflows to ensure data accuracy, metric relevance, and forward compatibility.  Later this year, Samsung will release a Sokatoa extension that enhances and optimizes profiling of Samsung GPUs for Android devices.
 
 
 <br/><br/>
-### Origins
+
+# Origins
 Sokatoa originated from [Samsung Austin Research Center (SARC)](https://semiconductor.samsung.com/about-us/locations/us-rnd-labs/computing-lab-sarc-acl/), a division of Samsung Semiconductor, and developed in collaboration with [Google](https://www.android.com/) and [LunarG](https://www.lunarg.com/).  SARC remains the application's primary steward pushing feature innovation and development. 
 
