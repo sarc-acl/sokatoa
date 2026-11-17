@@ -11,6 +11,9 @@
     - [New Profile Name Variables](#new-profile-name-variables)
   - [Perfetto](#perfetto)
   - [GFXR](#gfxr)
+  - [Menus and Saved Configurations](#menus-and-saved-configurations)
+    - [Open a Saved Configuration](#open-a-saved-configuration)
+    - [Importing & Exporting Saved Configurations](#importing--exporting-saved-configurations)
 - [Export a Profile](#export-a-profile)
 - [Import a Profile](#import-a-profile)
   - [Quick Profile Importing](#quick-profile-importing)
@@ -22,7 +25,7 @@
 
 A **profile** is the central container for all performance or debugging data collected from an application.  Perfetto and GFXR are the primary data generators, but plug-ins can also augment the profile data set.
 
-The process of collecting data for a profile is called 'capturing'.  A profile consists of one or more **captures**.  There are two primary types of captures: a **baseline** and **replays**.  The first capture is the baseline and any subsequent captures are called replays.
+The process of collecting data for a profile is called 'capturing'.  A profile consists of one or more **captures** (also referred to as capture datasets).  There are two primary types of captures: a **baseline** and **replays**.  The first capture is the baseline and any subsequent captures are called replays.
 
 During your analysis workflow you might make changes to shaders or want to collect different data. These are called **replays**.
 
@@ -37,7 +40,7 @@ You may also create a **slice** by selecting a subset of a capture data set and 
    ![New Profile Button](./images/profiles/new-profile.png)
 
 2. Define the [profile configuration](#new-profile-configuration-basics).
-3. Press the 'Capture' button from the 'New Profile Dialog'
+3. Press the 'Capture' button in the 'New Profile' dialog.
 
 
 After the capture process completes, you will see the new profile in the **Profile Explorer**
@@ -59,43 +62,61 @@ Capturing profile data starts by configuring what data you want to collect.  Fro
 
 ![New Profile](./images/profiles/new-profile-configuration.png)
 
-Quick configuration is the default behavior. You can change any of the capture settings. You can save your configuration settings by clicking the save as new configuration button. This can be useful when you need to make multiple captures, whether they are of different apps, or the same app with different command line arguments, or perhaps different Perfetto options. Saved configurations are listed on the left.
 
-![Saved profiles](./images/profiles/saved-profile-configurations.png)
+By default, you start with a blank configuration.  There are at least three sections: [Common](#common), [Perfetto](#perfetto), and [GFXR](#gfxr).  Common defines general capture parameters.  Perfetto and GFXR are built-in capture participants.  Extensions can add additional capture participants.
 
-After you click create, the capture process starts.  When completed the new profile is added to the Profile Explorer and opened in a new tab.
+You can save your configuration settings by clicking the save icon button at the top right.
+
+Clicking the Capture button starts the capture process.  When completed the new profile is added to [the Profile Explorer](#creating-and-viewing-your-first-profile) and opened in a new tab.
 
 <br>
 <br>
 
 ## Profile Configuration Details
 #### Common
+The Common section is divided into three sets of fields: [Profile](#profile), [Target](#target) and [Triggers](#triggers).  The Profile fields describe the intent of the profile.  The Target describes the on-device application to profile, and the Triggers set defines how to start and stop the capture process.
 
-This tab contains the common capture options.
+<br>
 
-![Common Tab](./images/profiles/common-tab.png)
+##### **Profile**
+![Common/Profile](./images/profiles/common-profile.png)
 
--   **Name**: The name of the profile to create. This is the name that will be shown in the profile explorer and the name of the profile directory. The default is a variable expression `${package_name}_${capture_triggers}_${device}`, which will use the name of the selected package, the capture triggers, and device ID. See below for a list of the available variables in the different contexts for new captures.
--   **Notes**: You can optionally add notes here which will be added to the profile's notebook.
--   **Device**: Select the device you wish to capture from. This uses ADB to get the list of connected devices.
--   **Device-specific Configuration**: Check this when the configuration is specific to the currently connected device. Doing so will prevent the device selector from automatically selecting another connected device when this device is not connected.
+-   **Name**: A label you give the profile, which is shown in the Profile Explorer and the name of the profile directory. The default is a variable expression `${package_name}_${capture_triggers}_${device}`, which will use the name of the selected package, the capture triggers, and device ID. [See below for a list of the available variables](#new-profile-name-variables) in the different contexts for new captures.
+-   **Description**: Optional text to give a fuller description of the intent and purpose of the profile.
+-   **Location**: The directory on disk in which to create the profile.
+-   **Device**: Select the device you wish to capture from. This uses `ADB` to get the list of connected devices.
+-   **Lock the configuration to this specific device**: Check this when the configuration is specific to the currently connected device. Doing so will prevent the device selector from automatically selecting another connected device when this device is not connected.
+-   **Collect device's Vulkan profile and capabilities**: When enabled, Vulkan information will be retrieved from the device.  The collected data is viewable from the capture's Vulkan Info tab.
+
+<br>
+
+##### **Target**
+![Common/Target](./images/profiles/common-target.png)
 -   **Mode**:
-    -   **Launch**: Launch the selected package/activity on the device with the given arguments.
-    -   **Attach**: Just attach to the device and capture without launching a package/activity. NOTE: GFXR capture requires starting a package/activity as the Vulkan API is tracked from application start. Therefore, you can only capture Perfetto data in this mode.
--   **Capture Triggers**:
-    -   **Start**:
-        -   **Manual**: The capture will start when you press the start button on the capture progress dialog.
-        -   **Delay since app launch**: The capture will start in the given number of milliseconds after the application was started.
-        -   **Frame (inclusive)**: The capture will start when the given frame is rendered. Frame numbers start at 1.
-    -   **Stop**:
-        -   **Manual**: The capture will stop when you press the stop button on the capture progress dialog.
-        -   **Duration since capture start**: The capture will stop in the given number of milliseconds after the capture was started.
-        -   **Frame (inclusive)**: The capture will stop after the given frame is rendered.
--   **Device Setup**:
-    -   **Detect application crashes**: When enabled, application crashes are detected using 'am monitor' and the crash details will be saved as a file in the created profile.
-    -   **Collect Vulkan info**: When enabled, Vulkan information will be retrieved from the device using feature enumeration and displayed in the Vulkan Info tab in the capture view.
-    -   **Terminate the app at the end**: When enabled, the app will be terminated at the end of the capture.
--   **Output Directory**: The location on disk at which to create the profile.
+    -   **Launch APK**: Launch the selected **Package**/**Activity** on the device with the given **Arguments**. The package list can be filtered to user-installed and debuggable packages, and refreshed from the device, using the buttons next to the package selector.
+    -   **System**: Attach to the device and capture without launching a package/activity. NOTE: GFXR capture requires starting a package/activity as the Vulkan API is tracked from application start. Therefore, you can only capture Perfetto data in this mode.
+    -   **Process (started from adb shell)**: Start a process via the device shell using **Command to run**, with optional **Environment variables**, **Working directory**, and **Process name**.
+-   **Detect application crashes**: When enabled, application crashes are detected using `am monitor` and the crash details will be saved as a file in the created profile. Not available in Process mode.
+-   **Enable Vulkan validation**: Enables the Vulkan [Validation layer](https://docs.vulkan.org/guide/latest/validation_overview.html).
+
+<br>
+
+##### **Triggers**
+![Common/Triggers](./images/profiles/common-triggers.png)
+-   **Start**:
+    -   **Manual**: The capture starts when you press the start button on the capture progress dialog.
+    -   **Delay from launch (ms)**: The capture starts in the given number of milliseconds after the application was started.
+    -   **Frame (inclusive)**: The capture starts when the given frame is rendered. Frame numbers start at 1.
+-   **Stop**:
+    -   **Manual**: The capture stops when you press the stop button on the capture progress dialog.
+    -   **Duration (ms)**: The capture stops in the given number of milliseconds after the capture was started.
+    -   **Frame (inclusive)**: The capture stops after the given frame is rendered.  This option is only available if `Start` is `Frame`.
+    -   **Frames since capture start** / **Queue submissions since capture start** (depending on the work unit): The capture stops after the given number of frames or queue submissions since the capture started. This option is not available in System mode.
+-   **Work unit**: Describes the high-level unit of work: frames or queue submissions.
+-   **Terminate the application at end of capture**: When enabled, the app will be terminated at the end of the capture. Not shown in Process mode, where the process is always terminated.
+
+
+<br>
 
 ##### New Profile Name Variables
 
@@ -114,32 +135,62 @@ This tab contains the common capture options.
 |                  |             |            | locale    | The timestamp in JavaScript locale-specific format, e.g., 3/12/2025, 11:21:00 AM                                                                                                          |
 |                  |             |            | utc       | The timestamp in JavaScript UTC format, e.g., Wed, 12 Mar 2025 15:21:00 GMT                                                                                                               |
 
+<br>
+
 #### Perfetto
 
-This tab contains the Perfetto capture options.
+![Perfetto section](./images/profiles/perfetto-tab.png)
 
-![Perfetto Tab](./images/profiles/perfetto-tab.png)
+-   **Enabled**: When enabled, Perfetto data will be captured. This data is presented in the System view of the capture, and contains data collected from both the CPU and GPU.
+-   **Customize Perfetto properties**: Enable this option to manually define the Perfetto capture properties.  Use this for fine-grained Perfetto settings or when the UI does not provide an interface for a desired setting.  See <https://perfetto.dev/docs/concepts/config> for more information.
 
--   **Enabled**: When enabled, Perfetto data will be captured. This will enable the system view of the profile which contains data from both the CPU and GPU.
+Perfetto capture adds some overhead, but it is minor.
 
-Perfetto capture adds some overhead, but it's minor.
-
-The default values for the rest of the settings should be fine for most users. You can uncheck certain types of data that you're not interested in. You can select which performance counters to collect. Advanced users can edit the Perfetto configuration directly. See <https://perfetto.dev/docs/concepts/config> for more information.
+<br>
 
 #### GFXR
+![GFXR section](./images/profiles/gfxr-tab.png)
 
-This tab contains the GFXR capture options.
+-   **Enabled**: When enabled, GFXR data will be captured. This data is presented in the Performance, Pipeline and Resources views of the capture. It also enables fetching screenshots, images, meshes, and other data for certain events, and allows replaying with shader replacement.
 
-![GFXR Tab](./images/profiles/gfxr-tab.png)
+**NOTE:** As GFXR requires the use of a Vulkan validation layer, the target APK must be debuggable, a process started from `adb shell`, or the device must be rooted.
 
--   **Enabled**: When enabled, GFXR data will be captured. This will enable the performance, pipeline and resources views of the profile. It also enables fetching screenshots, images, meshes, and other data for certain events, and allows replaying with shader replacement. NOTE: As GFXR requires the use of a Vulkan validation layer, the target APK must be debuggable or the device must be rooted.
-
-GFXR capture can add significant overhead (~30%). We are working to reduce that overhead, but it will never be negligible as it must record all Vulkan API calls and data in order to support replay. Keep this in mind when looking for performance issues. It is recommended to perform an initial baseline capture that includes GFXR and then perform a replay of the captured baseline to evaluate graphics performance as replays do not include the GFXR overhead experienced during baseline capture. Alternatively, you may want to capture Perfetto only for system level performance analysis.
+GFXR-based data collection can add significant overhead (~30%).  Keep this in mind when looking at performance measurements. It is recommended to perform an initial baseline capture that includes GFXR and then perform a replay of the captured baseline to evaluate graphics performance as replays do not include the GFXR overhead experienced during baseline capture. Alternatively, you may want to capture Perfetto only for system level performance analysis.
 
 The default values for the rest of the settings should be fine for most users. For more information on the GFXR settings, please see <https://github.com/LunarG/gfxreconstruct/blob/dev/USAGE_android.md>.
 
 If your app installs its own signal handlers, or you use a third-party crash reporter SDK, they may conflict with GFXR's memory tracking modes, Page Guard and User Fault FD.
 
+<br>
+
+### Menus and Saved Configurations
+Anchored to the top of the dialog are the profile name and actions.  There are many helpful actions here.
+
+#### Open a Saved Configuration
+To use a previously saved configuration, click the middle icon button.  A menu shows all saved configurations in alphabetical order.  Clicking an option loads that saved configuration.  Use this for quick access to your saved configurations when starting a new profile.
+
+![Saved configurations menu](./images/profiles/open-configs-menu.png)
+
+<br>
+
+Alternatively, a full list of saved configurations is accessible from either the kebab or context menus.  Use this view for general management of your configurations in addition to selecting one for a new profile.
+
+![Kebab menu](./images/profiles/kebab-menu.png)
+
+![Saved Configurations](./images/profiles/saved-configurations.png)
+
+<br>
+<br>
+
+
+#### Importing & Exporting Saved Configurations
+Capture configurations can be shared or used in the [CLI](./cli.md).  You can export a capture configuration from the kebab menu, the context menu, or the Saved Configurations view.  Configurations can be exported in bulk from the Saved Configurations view.
+
+![Export configuration](./images/profiles/kebab-menu-export.png)
+
+You can import capture configurations from the kebab menu or from the Saved Configurations view.
+
+<br>
 <br>
 <br>
 
@@ -156,13 +207,14 @@ This opens a dialog for you to select a destination and have the option to renam
 
 <br>
 <br>
+<br>
 
 ## Import a Profile
 To import a profile archive, open the ‘File’ menu and select the ‘Import’ option.  A system file picker opens.  Use this to select the Sokatoa profile archive (spa) file you wish to import. From here, Sokatoa will import the profile archive into the profile repository directory.
 
 ![Import Profile](./images/profiles/import-1.png)
 
-After the import process completes, you have the option to add the profile to the Profile Explorer or open to profile for viewing.
+After the import process completes, you have the option to add the profile to the Profile Explorer or open the profile for viewing.
 
 ![Import Profile Dialog](./images/profiles/import-2.png)
 
@@ -180,16 +232,14 @@ A replay uses GFXR to replay the profile on the device. This allows the tool to 
 
 Note that GFXR replays start from the beginning of the capture regardless of which replay region is selected. For long captures you may notice some activity before the replay region is shown on the device. Data is only collected for the replay region and the replay timeline will be limited to the region selected.
 
-![Replay Slice](./images/profiles/replay-frames.png)
-
-![Replay Shaders](./images/profiles/replay-shaders.png)
+![Replay Slice](./images/profiles/replay.png)
 
 <br>
 <br>
 
 ## Comparing Captures
 
-You can compare the baseline with a replay or a replay with a replay. Simply select the two nodes in the profile explorer that you want to compare, right-click and select compare.
+You can compare the baseline with a replay or a replay with a replay. Simply select the two nodes in the profile explorer that you want to compare, right-click and select Compare.
 
 ![Open Compare](./images/profiles/open-compare.png)
 
