@@ -60,7 +60,7 @@ Each track has a toolbar which lets you do things like select, remove, pin, rena
 
 ![Track Actions](./images/viewing-profiles/track-actions.png)
 
-Click the **Create combined tracks** icon button in the top right to open the Combination Tracks configuration tab.  The tab lets you combine certain tracks together into the same track. This can be interesting for things like related performance counters for example. You can create profile-specific or global combination tracks.
+Click the **Create Combination Track** icon button in the top right to open the Combination Tracks configuration tab.  The tab lets you combine certain tracks together into the same track. This can be interesting for things like related performance counters for example. You can create profile-specific or global combination tracks.
 
 ![Combine Tracks](./images/viewing-profiles/combine-tracks.png)
 
@@ -140,7 +140,7 @@ This view gives you a quick summary of the profile, including things like averag
 
 ## Vulkan information
 
-If you choose to collect Vulkan info when capturing your app, an additional view tab will appear. This provides information related to the Vulkan features and capabilities of the captured device. This is similar to running vulkaninfo.exe on a host machine that supports Vulkan.
+If you choose to **Collect device's Vulkan profile and capabilities** when capturing your app, an additional view tab will appear. This provides information related to the Vulkan features and capabilities of the captured device. This is similar to running vulkaninfo.exe on a host machine that supports Vulkan.
 
 ![Vulkan Info View](./images/viewing-profiles/vulkan-info-view.png)
 
@@ -151,11 +151,11 @@ You can also capture Vulkan info on replays; however if you are capturing a repl
 
 ## Status Bar
 
-The status bar contains status icons and actions. From left to right:
+<p align='center'>
+    <img src="./images/viewing-profiles/status-bar.png" alt="status bar"/>
+</p>
+The right end of the status bar holds three icons. From left to right:
 
--   **GFXR Status**: Indicates status of GFXR interactions like replays (red indicates an error has occurred). Clicking on it will open the GFXR output view.
--   **Shader Status**: Indicates status of shader tool interactions like compilation (red indicates an error has occurred). Clicking on it will open the shader output view.
--   **Notifications**: Errors, warnings and information messages are displayed here.
 -   **Toggle Bottom Panel**: Show/hide the bottom panel, which by default contains the output view.
-
-![Status Bar](./images/viewing-profiles/status-bar.png)
+-   **Background Activity**: Spins while work such as a replay runs in the background. Clicking on it lists that work, with its progress, and lets you cancel it.
+-   **Messages**: Errors, warnings and information messages are kept here; the bell's color signifies the highest severity of the unread messages.

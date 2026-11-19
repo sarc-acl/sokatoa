@@ -7,7 +7,7 @@
 ## Known Issues
 
 -   Very large GFXR captures can take longer to load and result in degraded UI performance. It's best to try to keep GFXR capture to around 100 frames or less.
--   Certain apps may fail to run properly when GFXR capturing is enabled.  There are different memory tracking modes that you can try in the GFXR tab in the capture dialog if you see issues with the default. See <https://github.com/LunarG/gfxreconstruct/blob/dev/USAGE_android.md#understanding-gfxreconstruct-layer-memory-capture> for more details.
+-   Certain apps may fail to run properly when GFXR capturing is enabled.  There are different memory tracking modes that you can try in the GFXR section in the capture dialog if you see issues with the default. See <https://github.com/LunarG/gfxreconstruct/blob/dev/USAGE_android.md#understanding-gfxreconstruct-layer-memory-capture> for more details.
 -   Replaying a GFXR file on a different device from the one it was created on, or even a different driver build on the same device, is not guaranteed to work.  For best results, replay on the same device/driver combination when possible.
 -   The performance view may not show data for some profiles. Sharing the profile and the Sokatoa log file will help us debug the issue.
 
@@ -21,6 +21,47 @@ directory and send it to us. You can find the sokatoa.log file here:
 -   macOS: `~/Library/Application Support/Sokatoa/logs/`
 
 ---
+
+<br>
+
+## Version 1.2.0
+
+-   New [command-line interface](./cli.md) with `capture`, `replay`, `new-profile`, `query` and `query-frames` commands for headless and automated use. Exported capture configurations can be run with `capture --config`.
+
+-   Redesigned capture and replay dialogs: section navigation with validation markers, a full-page saved configurations list with search, and auto-save of the selected configuration
+-   Capture configurations can be exported and imported as `.sokc` files, one at a time or all together as a zip
+-   Capture command-line Vulkan executables on Android with the new "Process (started from adb shell)" capture mode. It sets the command, environment, working directory and process name.
+-   New capture triggers:
+    -   Start and stop at a queue submission
+    -   Stop after N frames or N queue submissions
+    -   Captures of queue-submission ranges ("frameless" captures) are supported throughout the Summary, command tree, Pipeline and Performance views
+-   The Default launch activity is now resolved from the package itself, so packages without a launcher activity can be captured. The capture dialog shows which activity will start, and packages with no activity are left out of the list.
+-   Optional Vulkan API dump for Perfetto-only captures, so the command tree and pipeline views work without GFXR. It is off by default because it adds about 30% overhead. Replay-based features are not available for these captures.
+-   Optional Vulkan validation layer support during capture and replay. Results are saved to `vulkan_validation_<profile name>.txt` in the profile.
+-   Updated notification system
+-   New "Pinned Device" setting replaces "Always Use Android Serial". `ANDROID_SERIAL` is now honored by default, and a status bar warning appears when the pinned device is not connected.
+-   Collect and present occupancy data.  Available only through a Samsung extension.
+-   Collect and present shader instruction timing data.  Available only through a Samsung extension.
+-   Command tree:
+    -   New "Acquire Next Image" nodes
+    -   Empty queue submits are labeled and can be filtered
+    -   Nested queue debug label groups and inserts now show in place. Annotations made in earlier versions on those rows show only in the Notebook's Annotations tab.
+    -   Improved search highlighting and node reveal
+-   Pipeline view:
+    -   Physical device properties, limits and sparse properties
+    -   Device chain links from queue submits (queue, device, physical device, instance)
+    -   Subpass attachment references
+    -   Links to deleted objects
+-   Performance view accuracy fixes:
+    -   Multiple command buffers per submit
+    -   Adreno Surface and Dispatch slices
+    -   A data discrepancy now affects only the frame it occurs in
+    -   Frameless captures are supported
+-   Geometry view:
+    -   Much faster smooth normals
+    -   Winding and export fixes
+    -   Dynamic front face support
+-   Updated GFXR and the shader tools
 
 <br>
 
